@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Prerequisites
 *.d
 
@@ -30,3 +31,13 @@
 *.exe
 *.out
 *.app
+=======
+.idea/
+.vscode/
+.vs/
+cmake-build-debug/
+bin/
+build/
+out/
+CMakeSettings.json
+>>>>>>> d324a0b (initial commit)
