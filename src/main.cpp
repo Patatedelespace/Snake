@@ -51,18 +51,18 @@ int main()
         // Rectangle floor = {0, (float)GetScreenHeight() - 10, (float)GetScreenWidth(), 10};
 
         // DrawTextureRec(player.getSprite(), player.getRectangle(), player.getRealPosition(), WHITE);
-        DrawTextureRec(player.getSprite(), player.getRectangle(), player.getRealPosition(), WHITE);
+        DrawTextureRec(player.getSprite(), player.getRectangle(), player.getPosition(), WHITE);
 
         // DrawRectangle(0, GetScreenHeight() - 10, GetScreenWidth(), 10, GREEN);
 
-        std::cout << "{" << std::endl;
+        // std::cout << "{" << std::endl;
 
         for (Rectangle i : GAMESTATE::CollisionObjects) {
             DrawRectangle(i.x, i.y, i.width, i.height, GREEN);
-            std::cout << "  {" << i.x << ", " << i.y << ", " << i.width << ", " << i.height << "}" << std::endl;
+            // std::cout << "  {" << i.x << ", " << i.y << ", " << i.width << ", " << i.height << "}" << std::endl;
         }
 
-        std::cout << "}" << std::endl;
+        // std::cout << "}" << std::endl;
 
         EndDrawing();
     }
@@ -78,7 +78,8 @@ int main()
 void player_process(Player& player) {
     // player.setVelocityX(0);
 
-    player.setVelocityX(((int)IsKeyDown(KEY_RIGHT) - (int)IsKeyDown(KEY_LEFT)) * player.getSpeed() /** delta*/);
+    player.setVelocityX((IsKeyDown(KEY_RIGHT) - IsKeyDown(KEY_LEFT)) * player.getSpeed() /** delta*/);
+    std::cout << player.getVelocity().x << ";" << player.getVelocity().y << "(" << ((int)IsKeyDown(KEY_RIGHT) - (int)IsKeyDown(KEY_LEFT)) * player.getSpeed() << ")" << std::endl;
 
     if (player.getVelocity().x != 0) {
         // if (player.velocity.x < 0) player.direction = -1;
@@ -102,5 +103,7 @@ void player_process(Player& player) {
 
     // std::cout << "Position : {" << player.getPosition().x << "; " << player.getPosition().y << "}" << std::endl;
     // std::cout << "Velocity : {" << player.getVelocity().x << "; " << player.getVelocity().y << "}" << std::endl;
+
+    player.setCollisionRectangle((Rectangle){player.getPosition().x, player.getPosition().y, player.getRectangle().width, player.getRectangle().height});
 }
 
