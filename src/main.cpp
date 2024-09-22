@@ -62,6 +62,9 @@ int main()
             // std::cout << "  {" << i.x << ", " << i.y << ", " << i.width << ", " << i.height << "}" << std::endl;
         }
 
+        // DrawCircle(player.getPosition().x, player.getPosition().y, 1.f, RED);
+        DrawLineEx({player.getCollisionRectangle().x + player.getCollisionRectangle().width, player.getCollisionRectangle().y}, {player.getCollisionRectangle().x + player.getCollisionRectangle().width, player.getCollisionRectangle().y + player.getCollisionRectangle().height}, 1, RED);
+
         // std::cout << "}" << std::endl;
 
         EndDrawing();
@@ -91,8 +94,8 @@ void player_process(Player& player) {
 
     if (player.getVelocity().y < player.getJumpStrengh()) {
         // std::cout << "Must fall down" << std::endl;
-        player.setVelocityY(player.getVelocity().y + player.getGravity());
-        // std::cout << player.getVelocity().y + player.getGravity() << std::endl;
+        player.setVelocityY(player.getVelocity().y + GAMESTATE::gravity);
+        // std::cout << player.getVelocity().y + GAMESTATE::gravity << std::endl;
     }
 
     player.move(player.getVelocity());
@@ -106,4 +109,3 @@ void player_process(Player& player) {
 
     player.setCollisionRectangle((Rectangle){player.getPosition().x, player.getPosition().y, player.getRectangle().width, player.getRectangle().height});
 }
-

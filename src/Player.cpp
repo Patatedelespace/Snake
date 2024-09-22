@@ -1,10 +1,9 @@
 #include "Player.h"
-#include <thread>
 #include "GAMESTATE.h"
-#include <functional>
 #include "utility.h"
 #include <iostream>
 #include <chrono>
+#include <ostream>
 
 
 // Core functions
@@ -51,10 +50,6 @@ double Player::getSpeed() {
 
 double Player::getJumpStrengh() {
     return this->jump_strengh;
-}
-
-double Player::getGravity() {
-    return this->gravity;
 }
 
 
@@ -111,14 +106,12 @@ void Player::setJumpStrengh(double jump_strengh) {
     this->jump_strengh = jump_strengh;
 }
 
-void Player::setGravity(double gravity) {
-    this->gravity = gravity;
-}
-
 
 // Other functions
 void Player::move(Vector2 velocity) {
     this->collision_rectangle.x = this->position.x; this->collision_rectangle.y = this->position.y;
+
+    float bottom_collision_offset = 0;
 
     // Vector2 previous_position = this->position;
 
@@ -136,7 +129,13 @@ void Player::move(Vector2 velocity) {
             // if ( ( (this->position.y + this->collision_rectangle.height / 2 < i.y) && (this->position.y + this->collision_rectangle.height / 2 < i.y) ) || ( (this->position.y + this->collision_rectangle.height / 2 > i.y) && (this->position.y + this->collision_rectangle.height / 2 > i.y) ) ) {
                    // this->position.y = previous_position.y;
             // }
+
+            std::cout << "X collision !" << std::endl;
+
+            this->collision_rectangle.x = this->position.x;
+
             collision_type = X;
+
             break;
 
         }
@@ -152,27 +151,36 @@ void Player::move(Vector2 velocity) {
             // if ( ( (this->position.y + this->collision_rectangle.height / 2 < i.y) && (this->position.y + this->collision_rectangle.height / 2 < i.y) ) || ( (this->position.y + this->collision_rectangle.height / 2 > i.y) && (this->position.y + this->collision_rectangle.height / 2 > i.y) ) ) {
                    // this->position.y = previous_position.y;
             // }
+
+            std::cout << "Y collision !" << std::endl;
+
             collision_type = (collision_type == NONE) ? Y : X_AND_Y;
             break;
 
         }
     }
 
+    std::cout << "Collision : ";
+
     switch (collision_type) {
         case NONE:
+            std::cout << "NONE" << std::endl;
             position.x += velocity.x;
             position.y += velocity.y;
             break;
 
         case X:
+            std::cout << "X" << std::endl;
             position.y += velocity.y;
             break;
 
         case Y:
+            std::cout << "Y" << std::endl;
             position.x += velocity.x;
             break;
 
         case X_AND_Y:
+            std::cout << "X_AND_Y" << std::endl;
             break;
     }
 
@@ -187,14 +195,3 @@ void Player::resize(int width, int height) {
     this->sprite.width = width; this->sprite.height = height;
     this->rectangle.width = width; this->rectangle.height = height;
 }
-
-
-
-
-
-
-
-
-
-
-
