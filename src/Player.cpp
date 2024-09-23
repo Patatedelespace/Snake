@@ -52,6 +52,10 @@ double Player::getJumpStrengh() {
     return this->jump_strengh;
 }
 
+float Player::getMoveSmoothness() {
+    return this->move_smoothness;
+}
+
 
 // Setters functions
 void Player::setPosition(Vector2 position) {
@@ -106,10 +110,16 @@ void Player::setJumpStrengh(double jump_strengh) {
     this->jump_strengh = jump_strengh;
 }
 
+void Player::setMoveSmoothness(float move_smoothness) {
+    this->move_smoothness = move_smoothness;
+}
+
 
 // Other functions
-void Player::move(Vector2 velocity) {
+void Player::move() {
     this->collision_rectangle.x = this->position.x; this->collision_rectangle.y = this->position.y;
+
+    float player_y_center = this->position.y + (this->rectangle.height / 2);
 
     float bottom_collision_offset = 0;
 
@@ -119,7 +129,7 @@ void Player::move(Vector2 velocity) {
 
     CollisionType collision_type = NONE;
 
-    this->collision_rectangle.x += velocity.x;
+    this->collision_rectangle.x += this->velocity.x;
 
     for (Rectangle i : GAMESTATE::CollisionObjects) {
         // if ( ( ( (this->position.x > i.x) && (this->position.x < i.width) ) || ( (this->position.x + this->rectangle.width > i.x) && (this->position.x + this->rectangle.width < i.width) ) ) && ( ( (this->position.y > i.y)/*under top line*/ && (this->position.y < i.height)/*over bottom line*/ )/*with y*/ || ( (this->position.y + this->rectangle.height > i.y)/*under top line*/ && (this->position.y + this->rectangle.height < i.height)/*over bottom line*/ )/*with height*/  ) ) {
@@ -141,7 +151,9 @@ void Player::move(Vector2 velocity) {
         }
     }
 
-    this->collision_rectangle.y += velocity.y;
+    this->collision_rectangle.y += this->velocity.y;
+
+    float collision_object_y_center;
 
     for (Rectangle i : GAMESTATE::CollisionObjects) {
         // if ( ( ( (this->position.x > i.x) && (this->position.x < i.width) ) || ( (this->position.x + this->rectangle.width > i.x) && (this->position.x + this->rectangle.width < i.width) ) ) && ( ( (this->position.y > i.y)/*under top line*/ && (this->position.y < i.height)/*over bottom line*/ )/*with y*/ || ( (this->position.y + this->rectangle.height > i.y)/*under top line*/ && (this->position.y + this->rectangle.height < i.height)/*over bottom line*/ )/*with height*/  ) ) {
@@ -152,7 +164,13 @@ void Player::move(Vector2 velocity) {
                    // this->position.y = previous_position.y;
             // }
 
+            collision_object_y_center = i.y + (i.height / 2);
+
+            bottom_collision_offset = (collision_object_y_center - player_y_center) - (this->rectangle.height / 2) - (i.height / 2);
+
             std::cout << "Y collision !" << std::endl;
+
+            this->velocity.y = 0;
 
             collision_type = (collision_type == NONE) ? Y : X_AND_Y;
             break;
@@ -165,18 +183,19 @@ void Player::move(Vector2 velocity) {
     switch (collision_type) {
         case NONE:
             std::cout << "NONE" << std::endl;
-            position.x += velocity.x;
-            position.y += velocity.y;
+            this->position.x += this->velocity.x;
+            this->position.y += this->velocity.y;
             break;
 
         case X:
             std::cout << "X" << std::endl;
-            position.y += velocity.y;
+            this->position.y += velocity.y;
             break;
 
         case Y:
             std::cout << "Y" << std::endl;
-            position.x += velocity.x;
+            this->position.y += bottom_collision_offset;
+            this->position.x += velocity.x;
             break;
 
         case X_AND_Y:

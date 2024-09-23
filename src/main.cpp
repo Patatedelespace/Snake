@@ -81,7 +81,46 @@ int main()
 void player_process(Player& player) {
     // player.setVelocityX(0);
 
-    player.setVelocityX((IsKeyDown(KEY_RIGHT) - IsKeyDown(KEY_LEFT)) * player.getSpeed() /** delta*/);
+    // player.setVelocityX((IsKeyDown(KEY_RIGHT) - IsKeyDown(KEY_LEFT)) * player.getSpeed());
+
+    float player_x_movement;
+
+    if ((IsKeyDown(KEY_RIGHT) && IsKeyDown(KEY_LEFT)) || (!IsKeyDown(KEY_RIGHT) && !IsKeyDown(KEY_LEFT))) {
+
+        if (player.getVelocity().x < 0.2 && player.getVelocity().x > -0.2) {
+            player_x_movement = 0;
+        }
+        else {
+            std::cout << "no key detected." << std::endl;
+
+            int velocity_x_sign = (player.getVelocity().x > 0) - (player.getVelocity().x < 0);
+
+            switch (velocity_x_sign) {
+
+                case -1:
+                    std::cout << "stopping left movement" << std::endl;
+                    player_x_movement = (-player.getMoveSmoothness() > player.getVelocity().x) ? player.getVelocity().x + player.getMoveSmoothness() : 0;
+                    break;
+
+                case 1:
+                    std::cout << "stopping right movement" << std::endl;
+                    player_x_movement = (player.getMoveSmoothness() < player.getVelocity().x) ? player.getVelocity().x - player.getMoveSmoothness() : 0;
+                    break;
+
+            }
+
+        }
+    }
+    else if (IsKeyDown(KEY_RIGHT)) {
+        player_x_movement = (player.getVelocity().x < player.getSpeed()) ? player.getVelocity().x + player.getMoveSmoothness() : player.getSpeed();
+    }
+    else if (IsKeyDown(KEY_LEFT)) {
+        player_x_movement = (player.getVelocity().x > -player.getSpeed()) ? player.getVelocity().x - player.getMoveSmoothness() : -player.getSpeed();
+    }
+
+
+    player.setVelocityX(player_x_movement);
+
     std::cout << player.getVelocity().x << ";" << player.getVelocity().y << "(" << ((int)IsKeyDown(KEY_RIGHT) - (int)IsKeyDown(KEY_LEFT)) * player.getSpeed() << ")" << std::endl;
 
     if (player.getVelocity().x != 0) {
@@ -98,7 +137,7 @@ void player_process(Player& player) {
         // std::cout << player.getVelocity().y + GAMESTATE::gravity << std::endl;
     }
 
-    player.move(player.getVelocity());
+    player.move();
 
     // player.position = (Vector2) {player.position.x, (float)crop(0, GAMESTATE::SCREEN_HEIGHT, player.position.y)};
 

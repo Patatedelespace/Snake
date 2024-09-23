@@ -6,6 +6,7 @@
 class Player {
 private:
     float speed = 5;
+    float move_smoothness = 1;
     float jump_strengh = 12;
     Vector2 position = {GAMESTATE::SCREEN_WIDTH / 2, GAMESTATE::SCREEN_HEIGHT / 2};
     Vector2 velocity = {0.f, 0.f};
@@ -50,6 +51,7 @@ public:
     Rectangle getCollisionRectangle();
     double getSpeed();
     double getJumpStrengh();
+    float getMoveSmoothness();
 
     // Setters functions
     void setPosition(Vector2 position);
@@ -65,9 +67,10 @@ public:
     void setCollisionRectangle(Rectangle rectangle);
     void setSpeed(double speed);
     void setJumpStrengh(double jump_strengh);
+    void setMoveSmoothness(float move_smoothness);
 
     // Other functions
-    void move(Vector2 velocity);
+    void move();
     void resize(int width, int height);
 
 };

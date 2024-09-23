@@ -15,6 +15,6 @@ namespace GAMESTATE {
 
     inline std::vector<Rectangle> CollisionObjects = {
       {0, SCREEN_HEIGHT - 100, SCREEN_WIDTH, 10},
-      {751, SCREEN_HEIGHT - 200, 10, 50}
+      {751, SCREEN_HEIGHT - 250, 10, 50}
     };
 }
