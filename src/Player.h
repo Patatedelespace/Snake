@@ -5,9 +5,11 @@
 
 class Player {
 private:
+    bool on_ground = false;
+    float not_on_ground_jump_timer = 5;
     float speed = 5;
     float move_smoothness = 1;
-    float jump_strengh = 12;
+    float jump_strengh = 15;
     Vector2 position = {GAMESTATE::SCREEN_WIDTH / 2, GAMESTATE::SCREEN_HEIGHT / 2};
     Vector2 velocity = {0.f, 0.f};
     int direction = 1;
@@ -15,7 +17,6 @@ private:
     Texture2D sprite;
     Rectangle rectangle;
     Rectangle collision_rectangle;
-    bool on_ground;
     enum CollisionType {
         NONE = 0,
         X = 1,
@@ -72,5 +73,6 @@ public:
     // Other functions
     void move();
     void resize(int width, int height);
+    bool isOnGround();
 
 };

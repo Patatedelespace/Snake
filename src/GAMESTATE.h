@@ -13,7 +13,7 @@ namespace GAMESTATE {
 
     inline float gravity = 0.5;
 
-    inline std::vector<Rectangle> CollisionObjects = {
+    inline std::vector<Rectangle> dirt_floors = {
       {0, SCREEN_HEIGHT - 100, SCREEN_WIDTH, 10},
       {751, SCREEN_HEIGHT - 250, 10, 50}
     };

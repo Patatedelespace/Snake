@@ -2,11 +2,18 @@
 #include "Player.h"
 #include "GAMESTATE.h"
 #include <iostream>
+#include <map>
 
 void player_process(Player& player);
 
+std::map<std::string, Sound> musics_list = {
+    {"main music", LoadSound(ASSETS_PATH"main_bg_music.mp3")}
+};
+
 int main()
 {
+    InitAudioDevice();
+
     InitWindow(GAMESTATE::SCREEN_WIDTH, GAMESTATE::SCREEN_HEIGHT, "Snake (en faite c'était plus fun de faire un platformer) (tkt frère pour les copyrights)");
     SetWindowIcon(LoadImage(ASSETS_PATH"Icon.png"));
     SetTargetFPS(60);
@@ -19,8 +26,11 @@ int main()
 
     GAMESTATE::PLAYING = true;
 
-    while (!WindowShouldClose())
-    {
+    PlaySound(musics_list[std::string("main music")]);
+
+    SetMasterVolume(0.1);
+
+    while (!WindowShouldClose()) {
 
         player_process(player);
 
@@ -57,7 +67,7 @@ int main()
 
         // std::cout << "{" << std::endl;
 
-        for (Rectangle i : GAMESTATE::CollisionObjects) {
+        for (Rectangle i : GAMESTATE::dirt_floors) {
             DrawRectangle(i.x, i.y, i.width, i.height, GREEN);
             // std::cout << "  {" << i.x << ", " << i.y << ", " << i.width << ", " << i.height << "}" << std::endl;
         }
@@ -129,7 +139,7 @@ void player_process(Player& player) {
         player.setDirection((player.getVelocity().x < 0) ? -1 : 1);
     }
 
-    if (IsKeyPressed(KEY_SPACE)) player.setVelocityY(-player.getJumpStrengh());
+    if (IsKeyPressed(KEY_SPACE) && player.isOnGround()) player.setVelocityY(-player.getJumpStrengh());
 
     if (player.getVelocity().y < player.getJumpStrengh()) {
         // std::cout << "Must fall down" << std::endl;

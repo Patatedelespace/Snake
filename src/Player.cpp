@@ -131,7 +131,7 @@ void Player::move() {
 
     this->collision_rectangle.x += this->velocity.x;
 
-    for (Rectangle i : GAMESTATE::CollisionObjects) {
+    for (Rectangle i : GAMESTATE::dirt_floors) {
         // if ( ( ( (this->position.x > i.x) && (this->position.x < i.width) ) || ( (this->position.x + this->rectangle.width > i.x) && (this->position.x + this->rectangle.width < i.width) ) ) && ( ( (this->position.y > i.y)/*under top line*/ && (this->position.y < i.height)/*over bottom line*/ )/*with y*/ || ( (this->position.y + this->rectangle.height > i.y)/*under top line*/ && (this->position.y + this->rectangle.height < i.height)/*over bottom line*/ )/*with height*/  ) ) {
         //     this->position.x = previous_position.x;
         // }
@@ -155,18 +155,30 @@ void Player::move() {
 
     float collision_object_y_center;
 
-    for (Rectangle i : GAMESTATE::CollisionObjects) {
+    bool y_collision = false;
+
+    for (Rectangle i : GAMESTATE::dirt_floors) {
         // if ( ( ( (this->position.x > i.x) && (this->position.x < i.width) ) || ( (this->position.x + this->rectangle.width > i.x) && (this->position.x + this->rectangle.width < i.width) ) ) && ( ( (this->position.y > i.y)/*under top line*/ && (this->position.y < i.height)/*over bottom line*/ )/*with y*/ || ( (this->position.y + this->rectangle.height > i.y)/*under top line*/ && (this->position.y + this->rectangle.height < i.height)/*over bottom line*/ )/*with height*/  ) ) {
         //     this->position.x = previous_position.x;
         // }
+        
+
         if (CheckCollisionRecs(this->collision_rectangle, i)) {
             // if ( ( (this->position.y + this->collision_rectangle.height / 2 < i.y) && (this->position.y + this->collision_rectangle.height / 2 < i.y) ) || ( (this->position.y + this->collision_rectangle.height / 2 > i.y) && (this->position.y + this->collision_rectangle.height / 2 > i.y) ) ) {
                    // this->position.y = previous_position.y;
             // }
 
+            y_collision = true;
+
             collision_object_y_center = i.y + (i.height / 2);
 
-            bottom_collision_offset = (collision_object_y_center - player_y_center) - (this->rectangle.height / 2) - (i.height / 2);
+            if (collision_object_y_center > player_y_center)
+                bottom_collision_offset = (collision_object_y_center /*225*/ - player_y_center /*279.5*/) - (this->rectangle.height / 2 /*27.5*/) - (i.height / 2 /*25*/);
+            else if (collision_object_y_center < player_y_center)
+                bottom_collision_offset = (collision_object_y_center /*225*/ - player_y_center /*279.5*/) + (this->rectangle.height / 2 /*27.5*/) + (i.height / 2 /*25*/);
+
+
+            std::cout << "Bottom collision offset : " << bottom_collision_offset << std::endl;
 
             std::cout << "Y collision !" << std::endl;
 
@@ -177,6 +189,8 @@ void Player::move() {
 
         }
     }
+
+    on_ground = y_collision;
 
     std::cout << "Collision : ";
 
@@ -205,12 +219,16 @@ void Player::move() {
 
     // Rectangle floor = GAMESTATE::CollisionObjects[0];
 
-    std::cout << "Position y : " << this->position.y << " (" << this->position.y + this->collision_rectangle.height / 2 << "; " << this->position.y - this->collision_rectangle.height / 2 << ") Velocity : {x : " << this->velocity.x << "; y : " << this->velocity.y << "}" << std::endl;
+    std::cout << "Position : {x : " << this->position.x << "; y : " << this->position.y << "}, Velocity : {x : " << this->velocity.x << "; y : " << this->velocity.y << "}\nPlayer size : {width : " << this->rectangle.width << "; height : " << this->rectangle.height << "}" << std::endl;
 }
-
 
 
 void Player::resize(int width, int height) {
     this->sprite.width = width; this->sprite.height = height;
     this->rectangle.width = width; this->rectangle.height = height;
+}
+
+
+bool Player::isOnGround() {
+    return this->on_ground;
 }
