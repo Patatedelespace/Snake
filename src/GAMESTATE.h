@@ -1,7 +1,8 @@
 #pragma once
 
-#include "raylib.h"
+#include "../libs/raylib/src/raylib.h"
 #include <vector>
+#include <string>
 
 
 namespace GAMESTATE {
@@ -17,4 +18,6 @@ namespace GAMESTATE {
       {0, SCREEN_HEIGHT - 100, SCREEN_WIDTH, 10},
       {751, SCREEN_HEIGHT - 250, 10, 50}
     };
+
+    inline std::string current_music_track = "main music";
 }

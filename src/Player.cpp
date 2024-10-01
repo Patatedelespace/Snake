@@ -155,7 +155,7 @@ void Player::move() {
 
     float collision_object_y_center;
 
-    bool y_collision = false;
+    bool y_collision_bottom = false;
 
     for (Rectangle i : GAMESTATE::dirt_floors) {
         // if ( ( ( (this->position.x > i.x) && (this->position.x < i.width) ) || ( (this->position.x + this->rectangle.width > i.x) && (this->position.x + this->rectangle.width < i.width) ) ) && ( ( (this->position.y > i.y)/*under top line*/ && (this->position.y < i.height)/*over bottom line*/ )/*with y*/ || ( (this->position.y + this->rectangle.height > i.y)/*under top line*/ && (this->position.y + this->rectangle.height < i.height)/*over bottom line*/ )/*with height*/  ) ) {
@@ -168,7 +168,7 @@ void Player::move() {
                    // this->position.y = previous_position.y;
             // }
 
-            y_collision = true;
+            y_collision_bottom = (this->position.y < i.y);
 
             collision_object_y_center = i.y + (i.height / 2);
 
@@ -190,7 +190,7 @@ void Player::move() {
         }
     }
 
-    on_ground = y_collision;
+    on_ground = y_collision_bottom;
 
     std::cout << "Collision : ";
 

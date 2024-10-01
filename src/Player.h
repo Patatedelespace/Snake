@@ -1,6 +1,6 @@
 #pragma once
 
-#include "raylib.h"
+#include "../libs/raylib/src/raylib.h"
 #include "GAMESTATE.h"
 
 class Player {

@@ -1,4 +1,4 @@
-#include "raylib.h"
+#include "../libs/raylib/src/raylib.h"
 #include "Player.h"
 #include "GAMESTATE.h"
 #include <iostream>
@@ -139,7 +139,7 @@ void player_process(Player& player) {
         player.setDirection((player.getVelocity().x < 0) ? -1 : 1);
     }
 
-    if (IsKeyPressed(KEY_SPACE) && player.isOnGround()) player.setVelocityY(-player.getJumpStrengh());
+    if (IsKeyDown(KEY_SPACE) && player.isOnGround()) player.setVelocityY(-player.getJumpStrengh());
 
     if (player.getVelocity().y < player.getJumpStrengh()) {
         // std::cout << "Must fall down" << std::endl;
