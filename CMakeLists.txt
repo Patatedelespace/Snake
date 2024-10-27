@@ -11,7 +11,7 @@ set(BUILD_GAMES    OFF CACHE BOOL "" FORCE) # or games
 
 add_subdirectory(libs/raylib)
 
-add_executable(${PROJECT_NAME} common/src/main.cpp common/src/Player.cpp common/src/Player.h common/src/Audio.cpp common/src/Audio.h common/src/utility.h common/src/utility.cpp)
+add_executable(${PROJECT_NAME} common/src/main.cpp common/src/Player.cpp common/src/Player.h common/src/Audio.cpp common/src/Audio.h common/src/utility.h common/src/utility.cpp common/src/window.h common/src/window.cpp)
 target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
 target_include_directories(Snake PRIVATE ${raylib_INCLUDE_DIRS})
 target_link_libraries(Snake PRIVATE ${raylib_LIBRARIES})
