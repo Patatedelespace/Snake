@@ -3,6 +3,8 @@ project(Snake C CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 # set(CMAKE_CXX_COMPILER /usr/bin/x86_64-w64-mingw32-gcc)
 
 # Setting parameters for raylib

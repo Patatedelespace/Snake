@@ -1,0 +1,35 @@
+Date : 2024-11-14 19:40:43
+Directory : /home/patate/Prog/CPP/KDevelopProjects/Snake/common/
+Total : 10 files,  539 codes, 47 comments, 241 blanks, all 827 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| C++      |         10 |        539 |         47 |        241 |        827 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++---------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                | files      | code       | comment    | blank      | total      |
++---------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                   |         10 |        539 |         47 |        241 |        827 |
+| src                                                                 |         10 |        539 |         47 |        241 |        827 |
++---------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++---------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                            | language | code       | comment    | blank      | total      |
++---------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| /home/patate/Prog/CPP/KDevelopProjects/Snake/common/src/Audio.cpp   | C++      |         73 |          5 |         23 |        101 |
+| /home/patate/Prog/CPP/KDevelopProjects/Snake/common/src/Audio.h     | C++      |         49 |          5 |         26 |         80 |
+| /home/patate/Prog/CPP/KDevelopProjects/Snake/common/src/GAMESTATE.h | C++      |         21 |          4 |         13 |         38 |
+| /home/patate/Prog/CPP/KDevelopProjects/Snake/common/src/Player.cpp  | C++      |        145 |         20 |         73 |        238 |
+| /home/patate/Prog/CPP/KDevelopProjects/Snake/common/src/Player.h    | C++      |         66 |          5 |         14 |         85 |
+| /home/patate/Prog/CPP/KDevelopProjects/Snake/common/src/main.cpp    | C++      |        130 |          1 |         66 |        197 |
+| /home/patate/Prog/CPP/KDevelopProjects/Snake/common/src/utility.cpp | C++      |         26 |          0 |          9 |         35 |
+| /home/patate/Prog/CPP/KDevelopProjects/Snake/common/src/utility.h   | C++      |          6 |          7 |          6 |         19 |
+| /home/patate/Prog/CPP/KDevelopProjects/Snake/common/src/window.cpp  | C++      |         15 |          0 |          4 |         19 |
+| /home/patate/Prog/CPP/KDevelopProjects/Snake/common/src/window.h    | C++      |          8 |          0 |          7 |         15 |
+| Total                                                               |          |        539 |         47 |        241 |        827 |
++---------------------------------------------------------------------+----------+------------+------------+------------+------------+
